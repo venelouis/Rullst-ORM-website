@@ -14,7 +14,7 @@ interface NavigationProps {
 
 export default function Navigation({ activeSection, setActiveSection, onOpenDocs }: NavigationProps) {
   const navItems = [
-    { id: 'features', label: 'Benefícios', icon: Sparkles },
+    { id: 'features', label: 'Benefits', icon: Sparkles },
     { id: 'playground', label: 'Query Builder', icon: Code2 },
     { id: 'designer', label: 'Schema Builder', icon: Layers },
     { id: 'cli', label: 'Artisan CLI', icon: Terminal },
@@ -62,7 +62,7 @@ export default function Navigation({ activeSection, setActiveSection, onOpenDocs
             className="flex items-center space-x-2 px-3 py-1.5 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 border border-zinc-800 transition-all cursor-pointer"
           >
             <BookOpen className="h-4 w-4 text-orange-500" />
-            <span className="hidden sm:inline">Documentação</span>
+            <span className="hidden sm:inline">Documentation</span>
           </button>
 
           <a
@@ -70,7 +70,7 @@ export default function Navigation({ activeSection, setActiveSection, onOpenDocs
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center p-2.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-900 border border-zinc-800/80 transition-all cursor-pointer"
-            title="Ver no GitHub"
+            title="View on GitHub"
           >
             <Github className="h-5 w-5" />
           </a>

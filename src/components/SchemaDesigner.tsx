@@ -55,7 +55,7 @@ export default function SchemaDesigner() {
   const removeColumn = (index: number) => {
     // Keep primary key at index 0 or ensure at least one primary key is there
     if (columns[index].primaryKey && columns.filter(c => c.primaryKey).length === 1) {
-      alert('Seu modelo precisa de pelo menos uma chave primária (Primary Key).');
+      alert('Your model requires at least one primary key (Primary Key).');
       return;
     }
     setColumns(columns.filter((_, i) => i !== index));
@@ -155,7 +155,7 @@ export default function SchemaDesigner() {
             Rust Model & Column Designer
           </h2>
           <p className="text-zinc-400 mt-4 leading-relaxed text-sm md:text-base font-sans">
-            Desenhe seus modelos de banco de dados visualmente para o Rullst ORM. Nós geramos a declaração do Struct com as anotações do macromodelo e o script SQL correspondente para migração.
+            Design your database schemas visually for Rullst ORM. We automatically generate clean Rust Struct declarations complete with procedural macro attributes, as well as the matching SQL migration scripts.
           </p>
         </div>
 
@@ -166,13 +166,13 @@ export default function SchemaDesigner() {
           <div className="lg:col-span-6 bg-zinc-900/20 border border-zinc-800/80 rounded-xl p-6 space-y-6 box-glow-orange">
             <h3 className="font-display font-medium text-lg text-white border-b border-zinc-800/50 pb-3 flex items-center space-x-2">
               <Sparkles className="h-5 w-5 text-orange-500" />
-              <span>Propriedades do Modelo</span>
+              <span>Model Properties</span>
             </h3>
 
             {/* Entity metadata inputs */}
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Nome do Struct Rust</label>
+                <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Rust Struct Name</label>
                 <input
                   type="text"
                   value={structName}
@@ -181,7 +181,7 @@ export default function SchemaDesigner() {
                 />
               </div>
               <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Tabela do Banco de Dados</label>
+                <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Database Table Name</label>
                 <input
                   type="text"
                   value={tableName}
@@ -194,13 +194,13 @@ export default function SchemaDesigner() {
             {/* Columns builder column flow */}
             <div className="space-y-3 pb-3">
               <div className="flex items-center justify-between">
-                <label className="text-[10px] uppercase font-bold text-zinc-500 tracking-widest">Definição dos Campos ({columns.length})</label>
+                <label className="text-[10px] uppercase font-bold text-zinc-500 tracking-widest">Field Definitions ({columns.length})</label>
                 <button
                   onClick={addColumn}
                   className="flex items-center space-x-1 px-3 py-1.5 rounded bg-orange-600 hover:bg-orange-500 text-black font-bold text-xs transition-colors cursor-pointer"
                 >
                   <Plus className="h-3.5 w-3.5" />
-                  <span>Novo Campo</span>
+                  <span>Add Field</span>
                 </button>
               </div>
 
@@ -221,7 +221,7 @@ export default function SchemaDesigner() {
                       <input
                         type="text"
                         value={col.name}
-                        placeholder="nome_coluna"
+                        placeholder="column_name"
                         onChange={(e) => updateColumn(idx, 'name', e.target.value)}
                         className="w-full bg-zinc-900 border border-zinc-800 text-xs text-white px-2 py-1.5 rounded focus:border-orange-500 outline-none font-mono"
                       />
@@ -282,7 +282,7 @@ export default function SchemaDesigner() {
                     <button
                       onClick={() => removeColumn(idx)}
                       className="absolute right-3 bottom-3 md:static text-zinc-500 hover:text-rose-500 p-1.5 rounded-lg transition-colors cursor-pointer shrink-0 md:opacity-0 md:group-hover:opacity-100"
-                      title="Deletar Coluna"
+                      title="Delete Column"
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>

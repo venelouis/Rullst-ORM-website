@@ -185,7 +185,7 @@ export default function InteractiveSandbox() {
             Query Builder Playground
           </h2>
           <p className="text-zinc-400 mt-4 leading-relaxed text-sm md:text-base font-sans">
-            Configure seu modelo e adicione filtros de forma visual. Veja instantaneamente o código Rust gerado usando as macros da Rullst e a consulta SQL otimizada resultante.
+            Configure your base database model and append chainable filters visually. Instantly preview the generated Rust code utilizing Rullst macros along with the compiled, optimized SQL query.
           </p>
         </div>
 
@@ -195,19 +195,19 @@ export default function InteractiveSandbox() {
           {/* Controls - Left side (Span 5) */}
           <div className="lg:col-span-5 bg-zinc-900/30 border border-zinc-800/80 rounded-xl p-6 space-y-6 box-glow-orange">
             <div className="flex items-center justify-between border-b border-zinc-800/60 pb-4">
-              <h3 className="font-display font-medium text-lg text-white">Configurar Query</h3>
+              <h3 className="font-display font-medium text-lg text-white">Configure Query</h3>
               <button
                 onClick={resetQueries}
                 className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-zinc-400 hover:text-white hover:bg-zinc-800/80 border border-zinc-800/50 transition-all cursor-pointer"
               >
                 <RefreshCw className="h-3.5 w-3.5" />
-                <span>Resetar</span>
+                <span>Reset</span>
               </button>
             </div>
 
             {/* Model select */}
             <div className="space-y-2">
-              <label className="text-[10px] uppercase font-bold text-zinc-500 tracking-widest block">Modelo Base (Struct)</label>
+              <label className="text-[10px] uppercase font-bold text-zinc-500 tracking-widest block">Base Model (Struct)</label>
               <div className="grid grid-cols-3 gap-2">
                 {(['User', 'Post', 'Product'] as const).map((m) => (
                   <button
@@ -230,11 +230,11 @@ export default function InteractiveSandbox() {
 
             {/* Configured Queries List */}
             <div className="space-y-3">
-              <label className="text-[10px] uppercase font-bold text-zinc-500 tracking-widest block">Filtros Correntes (Query DSL)</label>
+              <label className="text-[10px] uppercase font-bold text-zinc-500 tracking-widest block">Active Filters (Query DSL)</label>
               
               {queryItems.length === 0 ? (
                 <div className="p-6 text-center border border-dashed border-zinc-800 bg-zinc-950/20 rounded-xl">
-                  <p className="text-xs text-zinc-550">Nenhum filtro aplicado. Carrega todos os registros.</p>
+                  <p className="text-xs text-zinc-550">No filters applied. This will retrieve all records default.</p>
                 </div>
               ) : (
                 <div className="space-y-2 max-h-[300px] overflow-y-auto pr-1">
@@ -353,7 +353,7 @@ export default function InteractiveSandbox() {
                               onChange={(e) => updateParam(item.id, 0, e.target.value)}
                               className="bg-zinc-900 border border-zinc-800 rounded text-xs text-white px-2 py-1 w-16 focus:border-orange-500 outline-none"
                             />
-                            <span className="text-zinc-500 text-[11px]">segundos de cache Redis</span>
+                            <span className="text-zinc-500 text-[11px]">seconds of Redis cache time</span>
                           </div>
                         )}
                       </div>
@@ -362,7 +362,7 @@ export default function InteractiveSandbox() {
                       <button
                         onClick={() => removeQueryItem(item.id)}
                         className="text-zinc-500 hover:text-rose-500 p-1 rounded hover:bg-zinc-900 opacity-0 group-hover:opacity-100 transition-all cursor-pointer"
-                        title="Remover filtro"
+                        title="Remove filter"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
@@ -374,7 +374,7 @@ export default function InteractiveSandbox() {
 
             {/* Add action buttons */}
             <div className="space-y-2 pt-4 border-t border-zinc-850">
-              <span className="text-[10px] uppercase font-bold text-zinc-500 tracking-widest block">Adicionar Filtro</span>
+              <span className="text-[10px] uppercase font-bold text-zinc-500 tracking-widest block">Add Filter</span>
               <div className="grid grid-cols-2 gap-2">
                 {(['where', 'where_in', 'where_null', 'order_by', 'limit', 'cache'] as const).map((type) => {
                   // Disable if duplicate for limit/cache or order_by
@@ -438,9 +438,9 @@ export default function InteractiveSandbox() {
             <div className="p-4 bg-zinc-900/10 border border-zinc-800 rounded-xl flex items-start space-x-3">
               <Info className="h-5 w-5 text-orange-500 shrink-0 mt-0.5" />
               <div className="space-y-1">
-                <p className="text-xs font-bold text-white">Você Sabia?</p>
+                <p className="text-xs font-bold text-white">Did You Know?</p>
                 <p className="text-xs text-zinc-400 leading-normal font-sans">
-                  Chamar o método <code className="font-mono text-xs text-orange-400">.cache(60)</code> ativa a inteligência de caching direto no Redis. Se a rota possuir cache, o driver interceptará a consulta antes do banco e lerá o cache em microssegundos, idêntico aos robustos caching drivers do Laravel!
+                  Calling the <code className="font-mono text-xs text-orange-400 font-bold">.cache(60)</code> builder method enables seamless caching direct to Redis. When cached, Rullst intercepts the query before database pool contact, returning raw entries in microseconds, similar to Laravel's robust caching layers!
                 </p>
               </div>
             </div>

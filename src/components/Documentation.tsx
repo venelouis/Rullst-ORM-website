@@ -21,12 +21,12 @@ export default function Documentation({ isOpen, onClose }: DocumentationProps) {
   const topics = [
     {
       id: 'quick_start',
-      title: 'Guia de Início Rápido',
+      title: 'Quick Start Guide',
       icon: Rocket,
-      description: 'Aprenda a instalar, configurar o banco de dados e rodar seu primeiro código rullst.',
-      content: `### Instalação
+      description: 'Learn how to install, configure the database pool, and execute your first Rullst queries.',
+      content: `### Installation
 
-Adicione o **Rullst ORM** ao seu arquivo \`Cargo.toml\`. Ele exige suporte assíncrono (geralmente Tokio) e os recursos de driver correspondentes do sqlx:
+Add **Rullst ORM** to your Rust \`Cargo.toml\` dependencies. It handles asynchronous execution (via Tokio or others) and includes corresponding driver pools from SQLx:
 
 \`\`\`toml
 [dependencies]
@@ -36,31 +36,31 @@ chrono = { version = "0.4", features = ["serde"] }
 serde = { version = "1.0", features = ["derive"] }
 \`\`\`
 
-### Variáveis de Ambiente
+### Environment Variables
 
-Crie um arquivo \`.env\` na raiz do seu projeto contendo a string de conexão do seu banco de dados. O Rullst suporta dinamicamente PostgreSQL, MySQL e SQLite:
+Create a standard \`.env\` configuration file at the root of your project containing your database connection parameters. Rullst seamlessly handles PostgreSQL, MySQL, and SQLite drivers:
 
 \`\`\`bash
-# Exemplo PostgreSQL:
-DATABASE_URL="postgres://postgres:password@localhost:5473/minha_db"
+# PostgreSQL Example:
+DATABASE_URL="postgres://postgres:password@localhost:5473/my_db"
 
-# Exemplo SQLite (Local de ultra rapidez):
+# Ultra-fast File-Based SQLite:
 # DATABASE_URL="sqlite://local_store.db"
 \`\`\`
 
-### Inicialização do Driver
+### Pool Connection Initialization
 
-Defina o pool de conexão do Rullst no início da sua função primordial:
+Set up the global Rullst connection drivers inside your main entry point:
 
 \`\`\`rust
 use rullst_orm::prelude::*;
 
 #[tokio::main]
 async fn main() -> Result<(), RullstError> {
-    // Configura e conecta os pools dinâmicos globais
+    // Configure and connect global dynamic connection pools
     Rullst::connect().await?;
     
-    println!("Rullst ORM conectado com sucesso!");
+    println!("Rullst ORM pool connected successfully!");
     Ok(())
 }
 \`\`\`
@@ -68,134 +68,134 @@ async fn main() -> Result<(), RullstError> {
     },
     {
       id: 'models',
-      title: 'Modelos ActiveRecord',
+      title: 'ActiveRecord Models',
       icon: Code,
-      description: 'Como declarar seus Structs Rust e conectá-los a tabelas usando macros procedurais.',
-      content: `### Definindo Structs
+      description: 'Declare your Rust Structs and connect them to databases using procedural macros.',
+      content: `### Defining Structs
 
-Os modelos usam a macro procedural \`#[derive(ActiveRecord)]\`. Por padrão, Rullst assume que a tabela é o plural do nome do struct em letra minúscula e a chave primária é \`id\`.
+Models utilize the \`#[derive(ActiveRecord)]\` procedural macro. By default, Rullst maps the struct identifier to plural snake_case database tables, with \`id\` acting as the default primary key.
 
 \`\`\`rust
 use rullst_orm::prelude::*;
 
 #[derive(ActiveRecord, Debug, Clone)]
-#[table = "usuarios_vip"]          // Sobrescreve o nome da tabela
-#[primary_key = "codigo_usuario"] // Sobrescreve a chave primária
+#[table = "vip_users"]               // Custom table name override
+#[primary_key = "user_code"]          // Custom primary key column override
 pub struct User {
-    pub codigo_usuario: i32,
-    pub nome: String,
-    pub saldo_compras: f64,
+    pub user_code: i32,
+    pub name: String,
+    pub purchase_balance: f64,
 }
 \`\`\`
 
-### Operações CRUD Básicas
+### Basic CRUD Operations
 
-Com o padrão ActiveRecord, você gerencia registros diretamente nas instâncias recuperadas ou geradas:
+With ActiveRecord patterns, you can query, update, insert, and delete database rows directly through struct instances:
 
 \`\`\`rust
-// 1. SELECT (Buscar por Chave Primária)
+// 1. SELECT (Fetch a row by its Primary Key)
 let mut user = User::find(42).await?;
 
-// 2. UPDATE (Modificar propriedades e Salvar)
-user.nome = "Thiago Venelouis".to_string();
+// 2. UPDATE (Mutate properties and save changes)
+user.name = "Thiago Venelouis".to_string();
 user.save().await?;
 
-// 3. CREATE (Instanciar e persistir)
-let mut novo = User::new();
-novo.nome = "Visitante".to_string();
-novo.saldo_compras = 150.50;
-novo.save().await?; // Cria o registro e popula a propriedade codigo_usuario
+// 3. CREATE (Instantiate a new struct and persist it)
+let mut new_user = User::new();
+new_user.name = "Guest User".to_string();
+new_user.purchase_balance = 150.50;
+new_user.save().await?; // Persists the row, automatically populating user_code
 
-// 4. DELETE (Remover registro)
-novo.delete().await?;
+// 4. DELETE (Remove database row)
+new_user.delete().await?;
 \`\`\`
 `
     },
     {
       id: 'queries',
-      title: 'Query Builder Encadeado',
+      title: 'Chained Query Builder',
       icon: Layers,
-      description: 'Buscas parrudas, filtros encadeados, ordenações, selects complexas e prevenção de injeção de SQL.',
-      content: `### Encadeamento de Métodos (DSL)
+      description: 'Execute advanced filters, sorting, offsets, complex selects, and secure SQL parameterization.',
+      content: `### Methods Chaining (DSL)
 
-O Query Builder traz flexibilidade completa para buscas dinâmicas com tipagem estática do Rust:
+The Query Builder offers full SQL expressiveness directly inside Rust's static type-safe environment:
 
 \`\`\`rust
 let posts = Post::query()
-    .where("status", "=", "publicado")
+    .where("status", "=", "published")
     .where_not_null("banner_url")
-    .where_in("categoria_id", vec![1, 2, 5])
-    .order_by("data_publicacao", "DESC")
+    .where_in("category_id", vec![1, 2, 5])
+    .order_by("publish_date", "DESC")
     .limit(15)
     .offset(30)
     .get()
     .await?;
 \`\`\`
 
-### Prevenção de SQL Injection
+### SQL Injection Prevention
 
-Todas as cláusulas do Query Builder compilam internamente em **Prepared Statements** parametrizados do driver sqlx (\`$1\`, \`$2\`...), impedindo brechas de injeção acidental.
+All filters specified in the Query Builder translate under the hood to parameters of fully prepared database statements (\`$1\`, \`$2\`...), providing solid protection against malicious SQL injections.
 
 \`\`\`rust
-// 100% seguro! Traduzido para: SELECT * FROM users WHERE email = $1
-let email_usuario = obter_entrada_usuario();
+// 100% secure! Compiled as: SELECT * FROM users WHERE email = $1
+let untrusted_input = get_user_input();
 let user = User::query()
-    .where("email", "=", email_usuario)
+    .where("email", "=", untrusted_input)
     .first()
     .await?;
 \`\`\`
 
-### Agregações Rápidas
+### Fast Aggregations
 
 \`\`\`rust
-let total_vendas = Product::query().sum("valor").await?;
-let maior_preco = Product::query().max("valor").await?;
-let qtde_usuarios = User::query().count().await?;
+let total_sales = Product::query().sum("price").await?;
+let max_price = Product::query().max("price").await?;
+let total_users = User::query().count().await?;
 \`\`\`
 `
     },
     {
       id: 'enterprise',
-      title: 'Enterprise & Performance',
+      title: 'Enterprise production',
       icon: Cpu,
-      description: 'Conectividade balanceada de Leitura/Escrita, caching nativo em Redis, paginação em chunks e multi-tenancy.',
+      description: 'Leverage database replication read/write split pools, native Redis caching layers, and lazy memory chunking.',
       content: `### Redis Caching Layer
 
-Evite sobrecarregar seu banco de dados com buscas repetitivas em tabelas estáticas:
+Avoid hammering database connections with repetitive querying on static database entries:
 
 \`\`\`rust
-// Faz o cacheamento por 120 segundos no Redis
-let configuracoes = Configs::query()
-    .where("grupo", "=", "global")
+// Automatically caches lookups inside Redis for 120 seconds
+let settings = Configs::query()
+    .where("group", "=", "global")
     .cache(120) 
     .get()
     .await?;
 \`\`\`
 
-### Divisão de Pools de Leitura e Escrita (Read/Write Splitting)
+### Reading & Writing Pool Splitting
 
-Bancos de dados de grande escala utilizam réplicas de leitura. Configurar o Rullst para separar queries de escrita (INSERT, UPDATE) de réplicas de leitura simples é automático:
+High-throughput applications depend on read-replicas. Rullst splits write pools (INSERT, UPDATE) from read-only pools automatically:
 
 \`\`\`rust
-// No .env:
-# WRITE_DB_URL="postgres://principal@host/db"
+// Configuration inside your .env parameters:
+# WRITE_DB_URL="postgres://primary@host/db"
 # READ_DB_URL="postgres://replica@host/db"
 
-// O Rullst direciona consultas de leitura (.get, .first, .count)
-// automaticamente para o pool replica, e operações de mutação para o principal!
+// Rullst automatically redirects read methods (.get, .first, .count)
+// to your replicas, reserving primary pool databases for writes!
 \`\`\`
 
-### Processamento de Cláusulas em Lote (Chunking)
+### Huge Dataset Iterations (Chunking)
 
-Útil para iterar sobre milhões de linhas sem estourar a memória (RAM) do seu servidor em Rust:
+Process millions of records in lazy memory-safe batches without hitting maximum RAM server allocations:
 
 \`\`\`rust
 Post::query()
-    .where("processado", "=", false)
+    .where("processed", "=", false)
     .chunk(1000, |posts_chunk| {
         for mut post in posts_chunk {
-            post.processado = true;
-            // Executa eficientemente
+            post.processed = true;
+            // High efficiency execution loops
             post.save().await.unwrap();
         }
     })
@@ -232,8 +232,8 @@ Post::query()
               <BookOpen className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="font-display font-medium text-white text-lg leading-normal">Documentação Rullst ORM</h3>
-              <p className="text-xs text-zinc-400">Guia de modelagem e referência da biblioteca Rust</p>
+              <h3 className="font-display font-medium text-white text-lg leading-normal">Rullst ORM Documentation</h3>
+              <p className="text-xs text-zinc-400">Modeling and reference guide for the Rust database library</p>
             </div>
           </div>
           <button
@@ -252,7 +252,7 @@ Post::query()
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Pesquisar nos tópicos de documentação..."
+              placeholder="Search across documentation topics..."
               className="w-full bg-zinc-900 border border-zinc-800 rounded-lg text-xs py-2 pl-9 pr-3 text-white focus:border-orange-500 outline-none placeholder:text-zinc-500"
             />
           </div>
@@ -263,7 +263,7 @@ Post::query()
           
           {/* Quick Chapters Tree - Left side inside drawer */}
           <div className="w-1/3 border-r border-zinc-850/60 h-full overflow-y-auto p-4 space-y-1 bg-zinc-950/30 shrink-0">
-            <span className="text-[10px] uppercase font-bold text-zinc-500 tracking-widest px-2 block mb-2">Seções Principais</span>
+            <span className="text-[10px] uppercase font-bold text-zinc-500 tracking-widest px-2 block mb-2">Main Explanations</span>
             {filteredTopics.map((topic) => {
               const Icon = topic.icon;
               const isSelected = activeTab === topic.id;
@@ -290,8 +290,8 @@ Post::query()
             {filteredTopics.length === 0 ? (
               <div className="text-center py-20 text-zinc-500 space-y-3">
                 <Search className="h-10 w-10 mx-auto text-zinc-650" />
-                <p className="text-sm">Nenhum resultado para "{searchQuery}"</p>
-                <button onClick={() => setSearchQuery('')} className="text-xs text-orange-400 hover:underline cursor-pointer">Limpar pesquisa</button>
+                <p className="text-sm">No results found for "{searchQuery}"</p>
+                <button onClick={() => setSearchQuery('')} className="text-xs text-orange-400 hover:underline cursor-pointer">Clear search</button>
               </div>
             ) : (
               (() => {

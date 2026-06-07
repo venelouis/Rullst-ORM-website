@@ -14,7 +14,7 @@ interface TerminalLine {
 export default function InteractiveTerminal() {
   const [history, setHistory] = useState<TerminalLine[]>([
     { text: 'Rullst CLI Engine v0.1.0-alpha', type: 'success' },
-    { text: 'Digite "rullst help" ou clique nos comandos recomendados abaixo para iniciar.', type: 'output' }
+    { text: 'Type "rullst help" or click on the recommended shortcuts below to start.', type: 'output' }
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
@@ -56,41 +56,41 @@ export default function InteractiveTerminal() {
     switch (clean) {
       case 'help':
         return [
-          { text: '=== COMANDOS RULLST DISPONÍVEIS ===', type: 'success' },
-          { text: '  rullst migrate                  Executa todas as migrações SQL pendentes', type: 'output' },
-          { text: '  rullst db:seed                 Popula tabelas com registros falsos integrados', type: 'output' },
-          { text: '  rullst make:migration [NOME]   Gera arquivo estruturado de migração SQL', type: 'output' },
-          { text: '  rullst make:model [NOME]       Cria o Struct com as anotações ActiveRecord', type: 'output' },
-          { text: '  rullst status                  Verifica a conexão atual com os drivers PostgreSQL/MySQL', type: 'output' },
-          { text: '  clear                          Limpa a tela do terminal', type: 'output' }
+          { text: '=== AVAILABLE RULLST COMMANDS ===', type: 'success' },
+          { text: '  rullst migrate                  Run all pending SQL database migrations', type: 'output' },
+          { text: '  rullst db:seed                 Seed database tables with realistic mock records', type: 'output' },
+          { text: '  rullst make:migration [NAME]   Generate structured custom SQL migration file', type: 'output' },
+          { text: '  rullst make:model [NAME]       Generate clean Rust model struct with ActiveRecord derives', type: 'output' },
+          { text: '  rullst status                  Check connections for active PostgreSQL, MySQL and SQLite drivers', type: 'output' },
+          { text: '  clear                          Clear the terminal session output', type: 'output' }
         ];
 
       case 'migrate':
         return [
-          { text: '⏱️ Iniciando migração do Rullst...', type: 'output' },
-          { text: '✔ Criando tabela: users (0.012s)', type: 'success' },
-          { text: '✔ Criando tabela: posts (0.009s)', type: 'success' },
-          { text: '✔ Criando tabela: comments (0.015s)', type: 'success' },
-          { text: '🎉 Banco de dados migrado com extremo sucesso em 0.036s!', type: 'success' }
+          { text: '⏱️ Initializing Rullst migration pool...', type: 'output' },
+          { text: '✔ Creating table: users (0.012s)', type: 'success' },
+          { text: '✔ Creating table: posts (0.009s)', type: 'success' },
+          { text: '✔ Creating table: comments (0.015s)', type: 'success' },
+          { text: '🎉 Database successfully migrated in 0.036s!', type: 'success' }
         ];
 
       case 'db:seed':
       case 'seed':
         return [
-          { text: '🌱 Executando Seeder Rullst...', type: 'output' },
-          { text: '  ▸ Cadastrando 50 usuários fictícios...', type: 'output' },
-          { text: '  ▸ Injetando 120 posts integrados com tags...', type: 'output' },
-          { text: '✔ Seeding finalizado com êxito! Tabelas populadas.', type: 'success' }
+          { text: '🌱 Running Rullst Database Seeder...', type: 'output' },
+          { text: '  ▸ Inserting 50 realistic fake user rows...', type: 'output' },
+          { text: '  ▸ Seeding 120 posts coupled with related category tags...', type: 'output' },
+          { text: '✔ Seeding successfully completed! All tables populated.', type: 'success' }
         ];
 
       case 'status':
         return [
           { text: '=== RULLST CONNECTION CHECK ===', type: 'success' },
-          { text: '  • Driver do PostgreSQL : Ativo (sqlx postgres pool v0.7.3)', type: 'output' },
-          { text: '  • Driver do MySQL      : Ativo (sqlx mysql pool v0.7.3)', type: 'output' },
-          { text: '  • Driver do SQLite     : Ativo (sqlx sqlite pool v0.7.3)', type: 'output' },
-          { text: '  • Redis Caching (Host) : Conectado (redis://127.0.0.1:6379)', type: 'output' },
-          { text: '  ✔ Tudo pronto para produção.', type: 'success' }
+          { text: '  • PostgreSQL Driver    : Active (sqlx postgres pool v0.7.3)', type: 'output' },
+          { text: '  • MySQL Driver         : Active (sqlx mysql pool v0.7.3)', type: 'output' },
+          { text: '  • SQLite Driver        : Active (sqlx sqlite pool v0.7.3)', type: 'output' },
+          { text: '  • Redis Cache Server   : Connected (redis://127.0.0.1:6379)', type: 'output' },
+          { text: '  ✔ Web deployment is ready for production scaling!', type: 'success' }
         ];
 
       case 'clear':
@@ -101,22 +101,22 @@ export default function InteractiveTerminal() {
         if (clean.startsWith('make:migration')) {
           const name = clean.split(' ')[1] || 'migration_file';
           return [
-            { text: `✔ Criada migração: migrations/20260607_${name}.sql`, type: 'success' },
-            { text: 'Dica: use "rullst migrate" para rodar a nova tabela.', type: 'output' }
+            { text: `✔ Migration generated: migrations/20260607_${name}.sql`, type: 'success' },
+            { text: 'Tip: Run "rullst migrate" to automatically apply the schemas.', type: 'output' }
           ];
         }
         if (clean.startsWith('make:model')) {
           const modelName = clean.split(' ')[1] || 'NewModel';
           const capitalized = modelName.charAt(0).toUpperCase() + modelName.slice(1);
           return [
-            { text: `✔ Criado modelo Rust rullst: src/models/${capitalized.toLowerCase()}.rs`, type: 'success' },
-            { text: 'Insira as diretivas #[derive(ActiveRecord)] para habilitar a query DSL.', type: 'output' }
+            { text: `✔ Created rullst Rust model: src/models/${capitalized.toLowerCase()}.rs`, type: 'success' },
+            { text: 'Insert #[derive(ActiveRecord)] directives to unlock fluent query DSL.', type: 'output' }
           ];
         }
 
         return [
-          { text: `❌ Comando não reconhecido: "${commandStr}"`, type: 'error' },
-          { text: 'Digite "rullst help" para listar todas as operações CLI disponíveis no Rullst.', type: 'output' }
+          { text: `❌ Command not recognized: "${commandStr}"`, type: 'error' },
+          { text: 'Type "rullst help" to list all available CLI commands inside Rullst.', type: 'output' }
         ];
     }
   };
@@ -139,10 +139,10 @@ export default function InteractiveTerminal() {
             <span>Interactive CLI</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-display font-medium text-white tracking-tight text-glow-orange">
-            Artisan CLI para Rust
+            Artisan CLI for Rust
           </h2>
           <p className="text-zinc-400 mt-4 leading-relaxed text-sm md:text-base font-sans">
-            O Rullst possui comandos de console robustos inspirados no Artisan do Laravel para gerenciar suas migrações SQL, estruturar modelos em Rust e popular bancos de forma instantânea. Teste agora!
+            Rullst comes with robust console utilities inspired by Laravel Artisan to handle pending SQL migrations, scaffold clean Rust models, and seed datasets in milliseconds. Try it now!
           </p>
         </div>
 
@@ -155,7 +155,7 @@ export default function InteractiveTerminal() {
               <div className="h-3 w-3 rounded-full bg-rose-500/80" />
               <div className="h-3 w-3 rounded-full bg-amber-500/80" />
               <div className="h-3 w-3 rounded-full bg-emerald-500/80" />
-              <span className="text-xs text-zinc-400 font-mono font-bold ml-3.5">venerouis@rullst-cli:~</span>
+              <span className="text-xs text-zinc-400 font-mono font-bold ml-3.5">venelouis@rullst-cli:~</span>
             </div>
             <div className="flex items-center space-x-1">
               <Database className="h-3.5 w-3.5 text-zinc-500" />
@@ -182,7 +182,7 @@ export default function InteractiveTerminal() {
             {isProcessing && (
               <div className="text-orange-400 font-mono text-xs flex items-center space-x-2 animate-pulse">
                 <span className="animate-spin mr-1">⌛</span>
-                <span>Processando comando no Rullst...</span>
+                <span>Processing command inside Rullst...</span>
               </div>
             )}
             
@@ -203,7 +203,7 @@ export default function InteractiveTerminal() {
               disabled={isProcessing}
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Digite 'rullst help'..."
+              placeholder="Type 'rullst help'..."
               className="bg-transparent border-none outline-none focus:ring-0 text-white font-mono text-sm flex-1"
             />
             <button
@@ -211,7 +211,7 @@ export default function InteractiveTerminal() {
               disabled={isProcessing}
               className="p-1.5 px-4 bg-orange-600 hover:bg-orange-500 text-black font-bold text-[11px] rounded-lg transition-all cursor-pointer font-sans shrink-0 uppercase tracking-wider"
             >
-              Executar
+              Execute
             </button>
           </form>
 
@@ -221,7 +221,7 @@ export default function InteractiveTerminal() {
         <div className="mt-6 flex flex-wrap justify-center items-center gap-2">
           <span className="text-xs text-zinc-550 font-bold uppercase tracking-wider mr-1.5 flex items-center gap-1">
             <Sparkles className="h-3.5 w-3.5 text-orange-500" />
-            Sugestões:
+            Suggestions:
           </span>
           {commandShortcuts.map((cmd) => (
             <button

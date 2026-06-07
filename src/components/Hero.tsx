@@ -18,7 +18,7 @@ export default function Hero() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const rustCode = `// O delicioso estilo Laravel ActiveRecord, agora no Rust compilado e rápido!
+  const rustCode = `// The delightful Laravel ActiveRecord style, now fast and compiled in Rust!
 use rullst_orm::prelude::*;
 
 #[derive(ActiveRecord, Debug)]
@@ -32,7 +32,7 @@ pub struct User {
 
 #[tokio::main]
 async fn main() -> Result<(), RullstError> {
-    // 1. Busca encadeada ultra-expressiva
+    // 1. Ultra-expressive chained queries
     let vips = User::query()
         .where("is_active", "=", true)
         .where_not_null("email")
@@ -41,20 +41,20 @@ async fn main() -> Result<(), RullstError> {
         .get()
         .await?;
 
-    // 2. Criação rápida de instância (ActiveRecord pattern)
-    let mut novo_usuario = User::new();
-    novo_usuario.name = "Thiago Venelouis".to_string();
-    novo_usuario.email = "venelouistyago@gmail.com".to_string();
+    // 2. Instant instance creation (ActiveRecord pattern)
+    let mut new_user = User::new();
+    new_user.name = "Thiago Venelouis".to_string();
+    new_user.email = "venelouistyago@gmail.com".to_string();
     
-    // 3. Salva diretamente
-    novo_usuario.save().await?;
+    // 3. Directly save the record
+    new_user.save().await?;
     
-    println!("Usuário cadastrado com ID: {}", novo_usuario.id);
+    println!("User registered with ID: {}", new_user.id);
     Ok(())
 }`;
 
   const phpCode = `<?php
-// O clássico Eloquent do Laravel que inspirou o Rullst:
+// The classic Laravel Eloquent that inspired Rullst:
 namespace App\\Models;
 use Illuminate\\Database\\Eloquent\\Model;
 
@@ -63,22 +63,22 @@ class User extends Model {
     public $timestamps = false;
 }
 
-// 1. Busca encadeada expressiva
+// 1. Expressive chained queries
 $vips = User::where('is_active', true)
     ->whereNotNull('email')
     ->orderBy('name', 'asc')
     ->limit(10)
     ->get();
 
-// 2. Criação rápida de instância
-$novo_usuario = new User();
-$novo_usuario->name = "Thiago Venelouis";
-$novo_usuario->email = "venelouistyago@gmail.com";
+// 2. Fast instance creation
+$new_user = new User();
+$new_user->name = "Thiago Venelouis";
+$new_user->email = "venelouistyago@gmail.com";
 
-// 3. Salva diretamente
-$novo_usuario->save();
+// 3. Directly save the record
+$new_user->save();
 
-echo "Usuário cadastrado com ID: " . $novo_usuario->id;
+echo "User registered with ID: " . $new_user->id;
 `;
 
   return (
@@ -111,11 +111,11 @@ echo "Usuário cadastrado com ID: " . $novo_usuario->id;
               transition={{ duration: 0.6, delay: 0.1 }}
               className="font-display text-5xl sm:text-6xl lg:text-[68px] font-bold tracking-tight text-white leading-[1.05] text-glow-orange"
             >
-              A elegância do{' '}
+              The elegance of{' '}
               <span className="text-orange-500">
                 Eloquent
               </span>{' '}
-              agora no{' '}
+              now in{' '}
               <span className="bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent font-extrabold">
                 Rust
               </span>.
@@ -127,7 +127,7 @@ echo "Usuário cadastrado com ID: " . $novo_usuario->id;
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-zinc-400 text-base sm:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 font-sans"
             >
-              Rullst é um ORM com padrão Active Record para ecossistemas de alta performance escritos em Rust. Construído sobre macros procedurais, ele traz uma sintaxe amigável, limpa e produtiva sem comprometer a rapidez e a segurança do Rust.
+              Rullst is an Active Record ORM for high-performance Rust ecosystems. Built on top of procedural macros, it delivers an intuitive, clean, and highly productive syntax without compromising on Rust's legendary speed and memory safety.
             </motion.p>
 
             {/* Quick action block */}
@@ -144,7 +144,7 @@ echo "Usuário cadastrado com ID: " . $novo_usuario->id;
                 <button
                   onClick={copyCommand}
                   className="ml-3 text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer"
-                  title="Copiar dependência"
+                  title="Copy dependency"
                 >
                   {copied ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4" />}
                 </button>
@@ -152,7 +152,7 @@ echo "Usuário cadastrado com ID: " . $novo_usuario->id;
 
               <div className="flex items-center space-x-2 text-sm text-zinc-400">
                 <Database className="h-4 w-4 text-zinc-500" />
-                <span>Compatível com Postgres, MySQL & SQLite</span>
+                <span>Compatible with Postgres, MySQL & SQLite</span>
               </div>
             </motion.div>
 
@@ -165,15 +165,15 @@ echo "Usuário cadastrado com ID: " . $novo_usuario->id;
             >
               <div className="space-y-1">
                 <p className="text-white font-bold text-xl md:text-2xl font-display">⚡ 0ms</p>
-                <p className="text-xs text-zinc-500 font-medium font-sans">Latência de driver dinâmico</p>
+                <p className="text-xs text-zinc-500 font-medium font-sans">Zero dynamic driver overhead</p>
               </div>
               <div className="space-y-1 border-l border-zinc-900 pl-4">
                 <p className="text-orange-500 font-bold text-xl md:text-2xl font-display">Laravel</p>
-                <p className="text-xs text-zinc-500 font-medium font-sans">Sintaxe expressiva herdada</p>
+                <p className="text-xs text-zinc-500 font-medium font-sans">Inherited expressive syntax</p>
               </div>
               <div className="space-y-1 border-l border-zinc-900 pl-4">
                 <p className="text-emerald-500 font-bold text-xl md:text-2xl font-display">Safe</p>
-                <p className="text-xs text-zinc-500 font-medium font-sans">Prevenção contra SQL injection</p>
+                <p className="text-xs text-zinc-500 font-medium font-sans">SQL injection prevention</p>
               </div>
             </motion.div>
           </div>

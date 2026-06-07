@@ -11,77 +11,77 @@ export default function Features() {
   const cards = [
     {
       icon: Database,
-      title: 'Padrão ActiveRecord Real',
-      desc: 'Diga adeus a sintaxes extensas de query builders burocráticos. Instancie seu Struct em Rust, preencha as variáveis e chame diretamente `.save().await?` ou `.delete().await?`. Praticidade máxima.',
+      title: 'True ActiveRecord Pattern',
+      desc: 'Say goodbye to verbose, bureaucratic query builders. Instantiate your Rust Struct, set your fields, and chain .save().await? or .delete().await? for absolute developer comfort.',
       color: 'from-orange-500 to-amber-500'
     },
     {
       icon: Cpu,
       title: 'Zero Runtime Overhead',
-      desc: 'Construído inteiramente sobre as poderosas macros procedurais do Rust. Toda a inteligência de mapeamento e rotulagem é compilada estaticamente. Latência de execução absoluta de 0ms.',
+      desc: 'Built entirely on top of Rust\'s powerful procedural macros. All mapping and label inference is resolved at compile time, guaranteeing an absolute 0ms execution overhead.',
       color: 'from-rose-500 to-orange-500'
     },
     {
       icon: ShieldCheck,
-      title: 'Proteção SQL Parametrizada',
-      desc: 'Proteção inabalável contra SQL Injection. O motor do Rullst traduz cada argumento em prepared statements parametrizados do driver sqlx base, mantendo sua aplicação sempre blindada.',
+      title: 'Parameterized SQL Protection',
+      desc: 'Bulletproof protection against SQL injection attacks. Rullst compiles each input into secure, parameterized prepared statements on the underlying sqlx engine, staying armored.',
       color: 'from-emerald-500 to-teal-500'
     },
     {
       icon: Zap,
-      title: 'Redis Caching Integrado',
-      desc: 'Acelere rotas repetitivas chamando o método encadeável `.cache(segundos)`. O Rullst lida com a interceptação e expiração automática dos dados no Redis em microssegundos.',
+      title: 'Native Redis Caching',
+      desc: 'Instantly fast-track repeated paths using the chained .cache(seconds) method. Rullst handles microsecond caching intercept and automated Redis data expiration for you.',
       color: 'from-blue-500 to-cyan-500'
     },
     {
       icon: Sparkles,
       title: 'Connection Splitting (R/W)',
-      desc: 'Escalonamento empresarial nativo. Divida de forma transparente conexões de Escrita (para servidores primários) e conexões de Leitura (para réplicas secundárias) sem alterar uma linha de código.',
+      desc: 'Enterprise-tier scaling made effortless. Seamlessly dispatch Write operations to primary nodes and Read operations to secondary replicas without refactoring existing codebase.',
       color: 'from-purple-500 to-rose-500'
     },
     {
       icon: HardDrive,
-      title: 'Drivers Dinâmicos Universais',
-      desc: 'Um único binário pode conectar-se de forma dinâmica a bases PostgreSQL, MySQL ou instâncias leves de SQLite local sem a necessidade de recompilar com flags de features exaustivas.',
+      title: 'Universal Dynamic Drivers',
+      desc: 'Connect a single binary dynamically to PostgreSQL, MySQL, or local SQLite pools, avoiding tedious recompilation processes or exhausting feature flag switching.',
       color: 'from-amber-500 to-yellow-500'
     }
   ];
 
   const comparisonData = [
     {
-      criterion: 'Curva de Aprendizado',
-      rullst: 'Baixíssima (Inspirado no Eloquent)',
-      diesel: 'Alta (Exige DSL complexa)',
-      seaorm: 'Média (Entity paradigm denso)',
-      sqlx: 'Baixa (Apenas SQL puro)'
+      criterion: 'Learning Curve',
+      rullst: 'Extremely Low (Eloquent Inspired)',
+      diesel: 'High (Requires complex DSL)',
+      seaorm: 'Medium (Dense Entity paradigm)',
+      sqlx: 'Low (Just raw SQL queries)'
     },
     {
-      criterion: 'Produtividade (Boilerplate)',
-      rullst: 'Excelente (Menos linhas de código)',
-      diesel: 'Baixa (Escreve arquivos schema.rs)',
-      seaorm: 'Média (Múltiplas camadas de trait)',
-      sqlx: 'Baixa (Precisa mapear structs manualmente)'
+      criterion: 'Productivity (Boilerplate)',
+      rullst: 'Excellent (Fewer lines of code)',
+      diesel: 'Low (Write manual schema.rs files)',
+      seaorm: 'Medium (Multi-layered trait structures)',
+      sqlx: 'Low (Map all structs manually)'
     },
     {
-      criterion: 'Ergonomia Active Record',
-      rullst: 'Sim, nativa e expressiva',
-      diesel: 'Não (Somente Query DSL)',
-      seaorm: 'Não (Datamapper stricto-sensu)',
-      sqlx: 'Não'
+      criterion: 'Active Record Ergonomics',
+      rullst: 'Yes, native & expressive',
+      diesel: 'No (Query DSL only)',
+      seaorm: 'No (Strict Datamapper architecture)',
+      sqlx: 'No (Explicit SQL matching)'
     },
     {
-      criterion: 'Suporte a Cache (Redis) nativo',
-      rullst: 'Sim, encadeado via .cache()',
-      diesel: 'Não (Exige lib customizada)',
-      seaorm: 'Não',
-      sqlx: 'Não'
+      criterion: 'Native Redis Caching',
+      rullst: 'Yes, chained via .cache()',
+      diesel: 'No (Requires custom wrapper)',
+      seaorm: 'No (Third-party packages required)',
+      sqlx: 'No'
     },
     {
-      criterion: 'Velocidade de Compilação',
-      rullst: 'Rápida (Inference estática leve)',
-      diesel: 'Lenta (Forte acoplamento de tipos)',
-      seaorm: 'Lenta (Macros procedurais gigantes)',
-      sqlx: 'Extremamente rápida'
+      criterion: 'Compilation Speeds',
+      rullst: 'Fast (Light static macro evaluation)',
+      diesel: 'Slow (Rigid type coupling parameters)',
+      seaorm: 'Slow (Heavy procedural macros tree)',
+      sqlx: 'Extremely Fast'
     }
   ];
 
@@ -95,13 +95,13 @@ export default function Features() {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-500 text-xs font-bold uppercase tracking-widest mb-4">
             <Scale className="h-4 w-4" />
-            <span>Por que escolher o Rullst</span>
+            <span>Why Choose Rullst</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-display font-medium text-white tracking-tight text-glow-orange">
-            Arquitetura Poderosa. Ergonomia Imbatível.
+            Powerful Architecture. Unparalleled Ergonomics.
           </h2>
           <p className="text-zinc-400 mt-4 leading-relaxed text-sm md:text-base font-sans font-normal">
-            O Rullst une o melhor de dois mundos: elimina a rigidez e complexidade excessiva de ORMs de Rust convencionais enquanto mantém a velocidade bruta e segurança estática da linguagem.
+            Rullst merges the best of both worlds: streamlining the friction and rigid boilerplates of traditional Rust ORMs while preserving raw compiling speeds and static type guarantees.
           </p>
         </div>
 
@@ -136,10 +136,10 @@ export default function Features() {
         {/* Comparison sub-section header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
           <h3 className="text-2xl font-display font-medium text-white tracking-tight">
-            Comparativo entre ORMs de Rust
+            Rust ORMs Head-to-Head
           </h3>
           <p className="text-zinc-500 text-xs mt-2">
-            Veja a diferença de arquitetura e ergonomia prática no desenvolvimento diário
+            Understand the key architectural, speed, and usability differences during active development
           </p>
         </div>
 
@@ -149,7 +149,7 @@ export default function Features() {
             <table className="w-full text-left font-sans text-xs md:text-sm border-collapse">
               <thead>
                 <tr className="bg-zinc-950/80 border-b border-zinc-900">
-                  <th className="p-4 font-bold text-zinc-500 uppercase tracking-widest text-[10px]">Critério</th>
+                  <th className="p-4 font-bold text-zinc-500 uppercase tracking-widest text-[10px]">Criterion</th>
                   <th className="p-4 font-bold text-orange-500 tracking-widest text-[10px] uppercase">Rullst ORM</th>
                   <th className="p-4 font-bold text-zinc-500 uppercase tracking-widest text-[10px]">Diesel</th>
                   <th className="p-4 font-bold text-zinc-500 uppercase tracking-widest text-[10px]">SeaORM</th>

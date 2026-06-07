@@ -120,7 +120,7 @@ export default function App() {
 
             {/* Links and handles */}
             <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-zinc-400 font-semibold uppercase tracking-wider">
-              <button onClick={() => handleNavigate('features')} className="hover:text-orange-500 transition-colors cursor-pointer">Benefícios</button>
+              <button onClick={() => handleNavigate('features')} className="hover:text-orange-500 transition-colors cursor-pointer">Benefits</button>
               <button onClick={() => handleNavigate('playground')} className="hover:text-orange-500 transition-colors cursor-pointer">Playground</button>
               <button onClick={() => handleNavigate('designer')} className="hover:text-orange-500 transition-colors cursor-pointer">Designer</button>
               <button onClick={() => handleNavigate('cli')} className="hover:text-orange-500 transition-colors cursor-pointer">Artisan CLI</button>
@@ -135,7 +135,7 @@ export default function App() {
               className="flex items-center space-x-1.5 text-xs text-zinc-400 hover:text-white transition-colors"
             >
               <Github className="h-4.5 w-4.5" />
-              <span>Ver no GitHub</span>
+              <span>View on GitHub</span>
             </a>
 
           </div>
@@ -143,7 +143,7 @@ export default function App() {
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
             <div className="flex items-center space-x-1">
               <Copyright className="h-3.5 w-3.5" />
-              <span>{new Date().getFullYear()} Rullst ORM. Criado e mantido por Thiago Venelouis.</span>
+              <span>{new Date().getFullYear()} Rullst ORM. Created and maintained by Thiago Venelouis.</span>
             </div>
 
             {/* Sleek status indicators (matches design.html footer) */}
@@ -157,9 +157,9 @@ export default function App() {
                 <span className="bg-zinc-900 border border-zinc-800/80 px-2 py-0.5 rounded text-[10px] text-zinc-400">Coverage: 98%</span>
               </div>
               <div className="flex items-center space-x-1 text-zinc-600 pl-2 border-l border-zinc-900">
-                <span>Com</span>
+                <span>With</span>
                 <Heart className="h-3 w-3 text-orange-500 fill-orange-500/20" />
-                <span>para Rust</span>
+                <span>for Rust</span>
               </div>
             </div>
           </div>
