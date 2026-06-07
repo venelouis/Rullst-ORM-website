@@ -13,7 +13,7 @@ export default function Hero() {
   const [activeCodeTab, setActiveCodeTab] = useState<'rust' | 'php'>('rust');
 
   const copyCommand = () => {
-    navigator.clipboard.writeText('rullst = "0.1.0"');
+    navigator.clipboard.writeText('cargo add rullst_orm');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -43,8 +43,8 @@ async fn main() -> Result<(), RullstError> {
 
     // 2. Instant instance creation (ActiveRecord pattern)
     let mut new_user = User::new();
-    new_user.name = "Venelouis".to_string();
-    new_user.email = "x@gmail.com".to_string();
+    new_user.name = "Thiago Venelouis".to_string();
+    new_user.email = "venelouistyago@gmail.com".to_string();
     
     // 3. Directly save the record
     new_user.save().await?;
@@ -72,8 +72,8 @@ $vips = User::where('is_active', true)
 
 // 2. Fast instance creation
 $new_user = new User();
-$new_user->name = "Venelouis";
-$new_user->email = "x@gmail.com";
+$new_user->name = "Thiago Venelouis";
+$new_user->email = "venelouistyago@gmail.com";
 
 // 3. Directly save the record
 $new_user->save();
@@ -139,12 +139,12 @@ echo "User registered with ID: " . $new_user->id;
             >
               {/* Dependency badge copy */}
               <div className="flex items-center space-x-2 bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3.5 w-full sm:w-auto font-mono text-sm group transition-all hover:border-zinc-700">
-                <span className="text-zinc-500 font-sans">Cargo:</span>
-                <span className="text-zinc-200">rullst = "0.1.0"</span>
+                <span className="text-orange-500 font-bold">$</span>
+                <span className="text-zinc-200">cargo add rullst_orm</span>
                 <button
                   onClick={copyCommand}
                   className="ml-3 text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer"
-                  title="Copy dependency"
+                  title="Copy command"
                 >
                   {copied ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4" />}
                 </button>

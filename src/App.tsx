@@ -143,7 +143,7 @@ export default function App() {
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
             <div className="flex items-center space-x-1">
               <Copyright className="h-3.5 w-3.5" />
-              <span>{new Date().getFullYear()} Rullst ORM. Created and maintained by Venelouis.</span>
+              <span>{new Date().getFullYear()} Rullst ORM. Created and maintained by Thiago Venelouis.</span>
             </div>
 
             {/* Sleek status indicators (matches design.html footer) */}

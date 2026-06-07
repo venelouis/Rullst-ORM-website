@@ -1,6 +1,6 @@
 # Rullst ORM 🦀
 
-[![Crates.io](https://img.shields.io/crates/v/rullst-orm.svg)](https://crates.io/crates/rullst-orm)
+[![Crates.io](https://img.shields.io/crates/v/rullst.svg)](https://crates.io/crates/rullst)
 [![Documentation](https://docs.rs/rullst/badge.svg)](https://docs.rs/rullst)
 [![License: MIT](https://img.shields.io/badge/License-MIT-orange.svg)](LICENSE)
 
@@ -90,7 +90,7 @@ pub struct User {
 let mut user = User::find(12).await?;
 
 // 2. UPDATE (Mutate and persist)
-user.name = "Venelouis".to_string();
+user.name = "Thiago Venelouis".to_string();
 user.save().await?;
 
 // 3. CREATE (Instantiate and insert)

@@ -159,7 +159,7 @@ With ActiveRecord patterns, you can query, update, insert, and delete database r
 let mut user = User::find(42).await?;
 
 // 2. UPDATE (Mutate properties and save changes)
-user.name = "Venelouis".to_string();
+user.name = "Thiago Venelouis".to_string();
 user.save().await?;
 
 // 3. CREATE (Instantiate a new struct and persist it)
