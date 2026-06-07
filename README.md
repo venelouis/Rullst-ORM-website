@@ -90,7 +90,7 @@ pub struct User {
 let mut user = User::find(12).await?;
 
 // 2. UPDATE (Mutate and persist)
-user.name = "Thiago Venelouis".to_string();
+user.name = "Venelouis".to_string();
 user.save().await?;
 
 // 3. CREATE (Instantiate and insert)

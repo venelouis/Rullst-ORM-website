@@ -43,8 +43,8 @@ async fn main() -> Result<(), RullstError> {
 
     // 2. Instant instance creation (ActiveRecord pattern)
     let mut new_user = User::new();
-    new_user.name = "Thiago Venelouis".to_string();
-    new_user.email = "venelouistyago@gmail.com".to_string();
+    new_user.name = "Venelouis".to_string();
+    new_user.email = "x@gmail.com".to_string();
     
     // 3. Directly save the record
     new_user.save().await?;
@@ -72,8 +72,8 @@ $vips = User::where('is_active', true)
 
 // 2. Fast instance creation
 $new_user = new User();
-$new_user->name = "Thiago Venelouis";
-$new_user->email = "venelouistyago@gmail.com";
+$new_user->name = "Venelouis";
+$new_user->email = "x@gmail.com";
 
 // 3. Directly save the record
 $new_user->save();
