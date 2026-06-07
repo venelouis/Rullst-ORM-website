@@ -12,6 +12,68 @@ interface DocumentationProps {
   onClose: () => void;
 }
 
+type Block = 
+  | { type: 'heading'; text: string }
+  | { type: 'code'; lang: string; code: string }
+  | { type: 'paragraph'; text: string };
+
+function parseMarkdown(text: string): Block[] {
+  const lines = text.split('\n');
+  const blocks: Block[] = [];
+  let inCodeBlock = false;
+  let codeLines: string[] = [];
+  let codeLang = '';
+  let currentParagraphLines: string[] = [];
+
+  const flushParagraph = () => {
+    if (currentParagraphLines.length > 0) {
+      blocks.push({
+        type: 'paragraph',
+        text: currentParagraphLines.join('\n')
+      });
+      currentParagraphLines = [];
+    }
+  };
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    if (line.startsWith('```')) {
+      if (inCodeBlock) {
+        blocks.push({
+          type: 'code',
+          lang: codeLang,
+          code: codeLines.join('\n')
+        });
+        codeLines = [];
+        codeLang = '';
+        inCodeBlock = false;
+      } else {
+        flushParagraph();
+        codeLang = line.slice(3).trim() || 'rust';
+        inCodeBlock = true;
+      }
+    } else if (inCodeBlock) {
+      codeLines.push(line);
+    } else if (line.startsWith('### ')) {
+      flushParagraph();
+      blocks.push({
+        type: 'heading',
+        text: line.slice(4).trim()
+      });
+    } else {
+      if (line.trim() === '') {
+        flushParagraph();
+      } else {
+        currentParagraphLines.push(line);
+      }
+    }
+  }
+
+  flushParagraph();
+  return blocks;
+}
+
 export default function Documentation({ isOpen, onClose }: DocumentationProps) {
   const [activeTab, setActiveTab] = useState<'quick_start' | 'models' | 'queries' | 'enterprise'>('quick_start');
   const [searchQuery, setSearchQuery] = useState('');
@@ -305,39 +367,34 @@ Post::query()
 
                     {/* Simple parser for custom MD style inside react without full bulky engine */}
                     <div className="prose prose-invert max-w-none text-sm leading-relaxed space-y-5 font-sans">
-                      {currentTopic.content.split('\n\n').map((paragraph, pIdx) => {
-                        // Check if paragraph is heading
-                        if (paragraph.startsWith('### ')) {
+                      {parseMarkdown(currentTopic.content).map((block, bIdx) => {
+                        if (block.type === 'heading') {
                           return (
-                            <h5 key={pIdx} className="text-xs font-bold uppercase tracking-widest text-orange-500 pt-4 flex items-center gap-1.5 border-b border-zinc-900 pb-2">
+                            <h5 key={bIdx} className="text-xs font-bold uppercase tracking-widest text-orange-500 pt-4 flex items-center gap-1.5 border-b border-zinc-900 pb-2">
                               <Hash className="h-4 w-4 shrink-0 text-zinc-550" />
-                              {paragraph.replace('### ', '')}
+                              {block.text}
                             </h5>
                           );
                         }
 
-                        // Check if paragraph is code block
-                        if (paragraph.startsWith('```')) {
-                          const lines = paragraph.split('\n');
-                          const lang = lines[0].replace('```', '') || 'rust';
-                          const codeText = lines.slice(1, -1).join('\n');
+                        if (block.type === 'code') {
                           return (
-                            <div key={pIdx} className="bg-[#010409] border border-zinc-800/85 rounded-xl overflow-hidden shadow-md my-4">
+                            <div key={bIdx} className="bg-[#010409] border border-zinc-800/85 rounded-xl overflow-hidden shadow-md my-4">
                               <div className="px-4 py-2 bg-zinc-900/60 border-b border-zinc-850 font-mono text-[10px] text-zinc-500 font-extrabold uppercase">
-                                {lang === 'toml' ? 'Cargo.toml' : lang === 'bash' ? 'CLI execution' : 'Rust snippet'}
+                                {block.lang === 'toml' ? 'Cargo.toml' : block.lang === 'bash' ? 'CLI execution' : 'Rust snippet'}
                               </div>
                               <div className="p-4 overflow-x-auto bg-[#010409]">
-                                <CodeHighlight code={codeText} language={lang as any} />
+                                <CodeHighlight code={block.code} language={block.lang as any} />
                               </div>
                             </div>
                           );
                         }
 
                         // Check inline code backticks highlight
-                        const parts = paragraph.split('`');
+                        const parts = block.text.split('`');
                         if (parts.length > 1) {
                           return (
-                            <p key={pIdx} className="text-zinc-300 leading-relaxed">
+                            <p key={bIdx} className="text-zinc-300 leading-relaxed">
                               {parts.map((part, partIdx) => {
                                 if (partIdx % 2 === 1) {
                                   return (
@@ -352,7 +409,7 @@ Post::query()
                           );
                         }
 
-                        return <p key={pIdx} className="text-zinc-300 leading-relaxed">{paragraph}</p>;
+                        return <p key={bIdx} className="text-zinc-300 leading-relaxed">{block.text}</p>;
                       })}
                     </div>
                   </div>
