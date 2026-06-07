@@ -1,6 +1,6 @@
 # Rullst ORM 🦀
 
-[![Crates.io](https://img.shields.io/crates/v/rullst.svg)](https://crates.io/crates/rullst)
+[![Crates.io](https://img.shields.io/crates/v/rullst-orm.svg)](https://crates.io/crates/rullst-orm)
 [![Documentation](https://docs.rs/rullst/badge.svg)](https://docs.rs/rullst)
 [![License: MIT](https://img.shields.io/badge/License-MIT-orange.svg)](LICENSE)
 
