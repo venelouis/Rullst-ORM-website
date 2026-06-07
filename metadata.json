@@ -1,0 +1,6 @@
+{
+  "name": "Rullst ORM",
+  "description": "An elegant Active Record ORM for Rust, bringing the intuitive design of Laravel Eloquent to the high-performance Rust ecosystem.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
